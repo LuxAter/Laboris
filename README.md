@@ -28,8 +28,117 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`laboris autocomplete [SHELL]`](#laboris-autocomplete-shell)
+* [`laboris commands`](#laboris-commands)
+* [`laboris config`](#laboris-config)
+* [`laboris config:get [KEY]`](#laboris-configget-key)
+* [`laboris config:set [KEY] [VALUE]`](#laboris-configset-key-value)
 * [`laboris hello [FILE]`](#laboris-hello-file)
 * [`laboris help [COMMAND]`](#laboris-help-command)
+* [`laboris update [CHANNEL]`](#laboris-update-channel)
+* [`laboris user:delete [FILE]`](#laboris-userdelete-file)
+* [`laboris user:recover [FILE]`](#laboris-userrecover-file)
+* [`laboris user:register [FILE]`](#laboris-userregister-file)
+* [`laboris user:signin [EMAIL]`](#laboris-usersignin-email)
+* [`laboris user:signout [FILE]`](#laboris-usersignout-file)
+* [`laboris user:update [FILE]`](#laboris-userupdate-file)
+
+## `laboris autocomplete [SHELL]`
+
+display autocomplete installation instructions
+
+```
+USAGE
+  $ laboris autocomplete [SHELL]
+
+ARGUMENTS
+  SHELL  shell type
+
+OPTIONS
+  -r, --refresh-cache  Refresh cache (ignores displaying instructions)
+
+EXAMPLES
+  $ laboris autocomplete
+  $ laboris autocomplete bash
+  $ laboris autocomplete zsh
+  $ laboris autocomplete --refresh-cache
+```
+
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v0.3.0/src/commands/autocomplete/index.ts)_
+
+## `laboris commands`
+
+list all the commands
+
+```
+USAGE
+  $ laboris commands
+
+OPTIONS
+  -h, --help              show CLI help
+  -j, --json              display unfiltered api data in json format
+  -x, --extended          show extra columns
+  --columns=columns       only show provided columns (comma-separated)
+  --csv                   output is csv format [alias: --output=csv]
+  --filter=filter         filter property by partial string matching, ex: name=foo
+  --hidden                show hidden commands
+  --no-header             hide table header from output
+  --no-truncate           do not truncate output to fit screen
+  --output=csv|json|yaml  output in a more machine friendly format
+  --sort=sort             property to sort by (prepend '-' for descending)
+```
+
+_See code: [@oclif/plugin-commands](https://github.com/oclif/plugin-commands/blob/v1.3.0/src/commands/commands.ts)_
+
+## `laboris config`
+
+display the current JSON configuration
+
+```
+USAGE
+  $ laboris config
+
+OPTIONS
+  -h, --help  show CLI help
+```
+
+_See code: [src/commands/config.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/config.ts)_
+
+## `laboris config:get [KEY]`
+
+fetch a specific configuration value
+
+```
+USAGE
+  $ laboris config:get [KEY]
+
+ARGUMENTS
+  KEY  configuration key to get
+
+OPTIONS
+  -h, --help  show CLI help
+```
+
+_See code: [src/commands/config/get.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/config/get.ts)_
+
+## `laboris config:set [KEY] [VALUE]`
+
+manually set a configuration value
+
+```
+USAGE
+  $ laboris config:set [KEY] [VALUE]
+
+ARGUMENTS
+  KEY    configuration key to set
+  VALUE  value to set configuration key
+
+OPTIONS
+  -f, --force  force rewrite of config value
+  -h, --help   show CLI help
+```
+
+_See code: [src/commands/config/set.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/config/set.ts)_
 
 ## `laboris hello [FILE]`
 
@@ -67,4 +176,112 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+
+## `laboris update [CHANNEL]`
+
+update the laboris CLI
+
+```
+USAGE
+  $ laboris update [CHANNEL]
+```
+
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1.3.10/src/commands/update.ts)_
+
+## `laboris user:delete [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ laboris user:delete [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/user/delete.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/delete.ts)_
+
+## `laboris user:recover [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ laboris user:recover [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/user/recover.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/recover.ts)_
+
+## `laboris user:register [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ laboris user:register [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/user/register.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/register.ts)_
+
+## `laboris user:signin [EMAIL]`
+
+describe the command here
+
+```
+USAGE
+  $ laboris user:signin [EMAIL]
+
+ARGUMENTS
+  EMAIL  user email
+
+OPTIONS
+  -h, --help  show CLI help
+```
+
+_See code: [src/commands/user/signin.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/signin.ts)_
+
+## `laboris user:signout [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ laboris user:signout [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/user/signout.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/signout.ts)_
+
+## `laboris user:update [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ laboris user:update [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/user/update.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/update.ts)_
 <!-- commandsstop -->

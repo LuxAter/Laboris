@@ -10,7 +10,16 @@
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
+    "@oclif/plugin-autocomplete": "^0.3.0",
+    "@oclif/plugin-commands": "^1.3.0",
     "@oclif/plugin-help": "^3",
+    "@oclif/plugin-not-found": "^1.2.4",
+    "@oclif/plugin-update": "^1.3.10",
+    "@oclif/plugin-warn-if-update-available": "^1.7.0",
+    "chalk": "^4.1.1",
+    "cli-highlight": "^2.1.11",
+    "firebase": "^8.6.5",
+    "lodash": "^4.17.21",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -42,8 +51,19 @@
     "commands": "./lib/commands",
     "bin": "laboris",
     "plugins": [
-      "@oclif/plugin-help"
-    ]
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found",
+      "@oclif/plugin-update",
+      "@oclif/plugin-commands",
+      "@oclif/plugin-autocomplete"
+    ],
+    "hooks": {
+      "prerun": [
+        "./lib/hooks/prerun/load-config",
+        "./lib/hooks/prerun/init_app"
+      ],
+      "postrun": "./lib/hooks/postrun/save-config"
+    }
   },
   "repository": "LuxAter/laboris",
   "scripts": {
