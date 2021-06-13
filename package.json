@@ -18,6 +18,7 @@
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "chalk": "^4.1.1",
     "cli-highlight": "^2.1.11",
+    "figures": "^3.2.0",
     "firebase": "^8.6.5",
     "lodash": "^4.17.21",
     "tslib": "^1"

@@ -19,7 +19,7 @@ $ npm install -g laboris
 $ laboris COMMAND
 running command...
 $ laboris (-v|--version|version)
-laboris/0.0.0 linux-x64 node-v16.1.0
+laboris/0.0.0 linux-x64 node-v16.3.0
 $ laboris --help [COMMAND]
 USAGE
   $ laboris COMMAND
@@ -36,12 +36,12 @@ USAGE
 * [`laboris hello [FILE]`](#laboris-hello-file)
 * [`laboris help [COMMAND]`](#laboris-help-command)
 * [`laboris update [CHANNEL]`](#laboris-update-channel)
-* [`laboris user:delete [FILE]`](#laboris-userdelete-file)
-* [`laboris user:recover [FILE]`](#laboris-userrecover-file)
-* [`laboris user:register [FILE]`](#laboris-userregister-file)
+* [`laboris user [FILE]`](#laboris-user-file)
+* [`laboris user:delete [EMAIL]`](#laboris-userdelete-email)
+* [`laboris user:recover [EMAIL]`](#laboris-userrecover-email)
+* [`laboris user:register [EMAIL]`](#laboris-userregister-email)
 * [`laboris user:signin [EMAIL]`](#laboris-usersignin-email)
-* [`laboris user:signout [FILE]`](#laboris-usersignout-file)
-* [`laboris user:update [FILE]`](#laboris-userupdate-file)
+* [`laboris user:signout`](#laboris-usersignout)
 
 ## `laboris autocomplete [SHELL]`
 
@@ -188,50 +188,70 @@ USAGE
 
 _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1.3.10/src/commands/update.ts)_
 
-## `laboris user:delete [FILE]`
+## `laboris user [FILE]`
 
 describe the command here
 
 ```
 USAGE
-  $ laboris user:delete [FILE]
+  $ laboris user [FILE]
 
 OPTIONS
   -f, --force
   -h, --help       show CLI help
   -n, --name=name  name to print
+```
+
+_See code: [src/commands/user.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user.ts)_
+
+## `laboris user:delete [EMAIL]`
+
+describe the command here
+
+```
+USAGE
+  $ laboris user:delete [EMAIL]
+
+ARGUMENTS
+  EMAIL  user email
+
+OPTIONS
+  -f, --force
+  -h, --help   show CLI help
 ```
 
 _See code: [src/commands/user/delete.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/delete.ts)_
 
-## `laboris user:recover [FILE]`
+## `laboris user:recover [EMAIL]`
 
 describe the command here
 
 ```
 USAGE
-  $ laboris user:recover [FILE]
+  $ laboris user:recover [EMAIL]
+
+ARGUMENTS
+  EMAIL  user email
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help  show CLI help
 ```
 
 _See code: [src/commands/user/recover.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/recover.ts)_
 
-## `laboris user:register [FILE]`
+## `laboris user:register [EMAIL]`
 
 describe the command here
 
 ```
 USAGE
-  $ laboris user:register [FILE]
+  $ laboris user:register [EMAIL]
+
+ARGUMENTS
+  EMAIL  user email
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help  show CLI help
 ```
 
 _See code: [src/commands/user/register.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/register.ts)_
@@ -253,35 +273,16 @@ OPTIONS
 
 _See code: [src/commands/user/signin.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/signin.ts)_
 
-## `laboris user:signout [FILE]`
+## `laboris user:signout`
 
 describe the command here
 
 ```
 USAGE
-  $ laboris user:signout [FILE]
+  $ laboris user:signout
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help  show CLI help
 ```
 
 _See code: [src/commands/user/signout.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/signout.ts)_
-
-## `laboris user:update [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ laboris user:update [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-```
-
-_See code: [src/commands/user/update.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/user/update.ts)_
-<!-- commandsstop -->

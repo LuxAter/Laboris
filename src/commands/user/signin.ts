@@ -6,9 +6,10 @@ import * as inquirer from "inquirer";
 import * as _ from "lodash";
 
 import { cfg, __DIRTY_CONFIG__ } from "../../common/config";
+import { success, error } from "../../common/message";
 
 export default class UserSignin extends Command {
-  static description = "describe the command here";
+  static description = "sign-in to an existing account";
 
   static flags = {
     help: flags.help({ char: "h" }),
@@ -50,10 +51,11 @@ export default class UserSignin extends Command {
           "userToken",
           Buffer.from(JSON.stringify(user)).toString("base64")
         );
+        success(`Signed in as ${user.email}`);
         __DIRTY_CONFIG__ = true;
       })
-      .catch((error: any) => {
-        this.warn(error.message);
+      .catch((err: any) => {
+        error(err.message);
       });
   }
 }

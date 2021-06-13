@@ -6,9 +6,10 @@ import * as inquirer from "inquirer";
 import * as _ from "lodash";
 
 import { cfg, __DIRTY_CONFIG__ } from "../../common/config";
+import { success, error } from "../../common/message";
 
 export default class UserRegister extends Command {
-  static description = "describe the command here";
+  static description = "create a new user";
 
   static flags = {
     help: flags.help({ char: "h" }),
@@ -45,7 +46,7 @@ export default class UserRegister extends Command {
       .then((args: any) => {
         if (args.password !== args.passwordConfirm)
           return new Promise((resolve, reject) => {
-            reject("Passwords do not match");
+            reject({ message: "Passwords do not match." });
           });
         return firebase
           .auth()
@@ -60,10 +61,11 @@ export default class UserRegister extends Command {
           "userToken",
           Buffer.from(JSON.stringify(user)).toString("base64")
         );
+        success(`Created a new user for ${user.email}`);
         __DIRTY_CONFIG__ = true;
       })
-      .catch((error: any) => {
-        this.warn(error.message);
+      .catch((err: any) => {
+        error(err.message);
       });
   }
 }

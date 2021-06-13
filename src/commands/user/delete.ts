@@ -6,9 +6,10 @@ import * as inquirer from "inquirer";
 import * as _ from "lodash";
 
 import { cfg, __DIRTY_CONFIG__ } from "../../common/config";
+import { error, success } from "../../common/message";
 
 export default class UserDelete extends Command {
-  static description = "describe the command here";
+  static description = "delete the current user account";
 
   static flags = {
     help: flags.help({ char: "h" }),
@@ -39,9 +40,15 @@ export default class UserDelete extends Command {
       .then((args: any) => {
         var user = firebase.auth().currentUser;
         if (user === null)
-          return new Promise((resolve, reject) => {
-            reject({message: "Please sign in before deleting account"});
+          return Promise.reject({
+            message: "Please sign in before deleting your account.",
           });
+        if (args.email !== user.email)
+          return Promise.reject({
+            message: "Provided email does not match current user.",
+          });
+        if (!args.force)
+          return Promise.reject({ message: "Did not delete current user." });
         return user.delete();
       })
       .then(() => {
@@ -50,9 +57,10 @@ export default class UserDelete extends Command {
       .then(([cfg]: [any]) => {
         _.set(cfg, "userToken", undefined);
         __DIRTY_CONFIG__ = true;
+        success("Deleted user account");
       })
-      .catch((error: any) => {
-        this.warn(error.message);
+      .catch((err: any) => {
+        error(err.message);
       });
   }
 }
