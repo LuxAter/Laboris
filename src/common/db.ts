@@ -1,8 +1,12 @@
-import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
+import firebase from "firebase/app"
+import "firebase/firestore"
+// import { getFirestore, enableIndexedDbPersistence } from "firebase/firestore"
+
+interface Database {
+  users: any,
+  tasks: any
+};
 
 export function db(...args: any[]): any {
-  return new Promise((resolve, reject) => {
-
-  });
+  return Promise.resolve(firebase.firestore());
 }
