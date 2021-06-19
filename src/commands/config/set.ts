@@ -1,12 +1,15 @@
 import { Command, flags } from "@oclif/command";
 
-import { highlight } from "cli-highlight";
 import * as chalk from "chalk";
 import * as _ from "lodash";
-import * as inquirer from "inquirer";
 
+import { highlightJson } from "../../common/util";
 import { cfg, __DIRTY_CONFIG__ } from "../../common/config";
 import { success, warning } from "../../common/message";
+import {
+  configSetQuestion,
+  ConfigSetAnswer,
+} from "../../common/prompts";
 
 export default class ConfigSet extends Command {
   static description = "manually set a configuration value";
@@ -28,54 +31,34 @@ export default class ConfigSet extends Command {
     const { args, flags } = this.parse(ConfigSet);
 
     await cfg()
-      .then(([cfg]: [any]) => {
-        const currentValue = _.has(cfg, args.key) ? _.get(cfg, args.key) : null;
-        if (currentValue !== null && !flags.force)
-          return inquirer
-            .prompt(
-              [
-                {
-                  type: "confirm",
-                  name: "force",
-                  message: `Overwrite current value (${highlight(
-                    JSON.stringify(currentValue, null, 2),
-                    { language: "json", ignoreIllegals: true }
-                  )})?`,
-                },
-              ],
-              flags
-            )
-            .then((args: any) => {
-              return Promise.resolve([cfg, args.force]);
-            });
-        else return Promise.resolve([cfg, true]);
+      .then(async ([cfg]: [any]) => {
+        const answers = await configSetQuestion(_.merge(args, flags), cfg);
+        return Promise.resolve([cfg, answers]);
       })
-      .then(([cfg, conf]: [any, boolean]) => {
+      .then(([cfg, answers]: [any, ConfigSetAnswer]) => {
         var val: any = null;
-        if (!isNaN(args.value) && !isNaN(parseFloat(args.value))) {
-          val = parseFloat(args.value);
+        if (answers.value.length === 0) {
+          val = undefined;
+        } else if (!isNaN(parseFloat(answers.value))) {
+          val = parseFloat(answers.value);
         } else {
           try {
-            val = JSON.parse(args.value);
+            val = JSON.parse(answers.value);
           } catch (err) {
-            val = args.value;
+            val = answers.value;
           }
         }
 
-        if (conf) {
-          _.set(cfg, args.key, val);
+        if (answers.force === undefined || answers.force === true) {
+          _.set(cfg, answers.key, val);
           success(
-            `Set config value ${chalk.blue(args.key)} to ${highlight(
-              JSON.stringify(val ? val : null, null, 2),
-              {
-                language: "json",
-                ignoreIllegals: true,
-              }
+            `Set config value ${chalk.blue(answers.key)} to ${highlightJson(
+              val === undefined ? null : val
             )}`
           );
           __DIRTY_CONFIG__ = true;
         } else {
-          warning(`Did not set config value for ${chalk.blue(args.key)}`);
+          warning(`Did not set config value for ${chalk.blue(answers.key)}`);
         }
       });
   }

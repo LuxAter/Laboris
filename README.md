@@ -34,7 +34,8 @@ USAGE
 * [`laboris config:get [KEY]`](#laboris-configget-key)
 * [`laboris config:set [KEY] [VALUE]`](#laboris-configset-key-value)
 * [`laboris help [COMMAND]`](#laboris-help-command)
-* [`laboris list [FILE]`](#laboris-list-file)
+* [`laboris list`](#laboris-list)
+* [`laboris task:new [FILE]`](#laboris-tasknew-file)
 * [`laboris update [CHANNEL]`](#laboris-update-channel)
 * [`laboris user`](#laboris-user)
 * [`laboris user:delete [EMAIL]`](#laboris-userdelete-email)
@@ -157,13 +158,27 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
-## `laboris list [FILE]`
+## `laboris list`
 
 describe the command here
 
 ```
 USAGE
-  $ laboris list [FILE]
+  $ laboris list
+
+OPTIONS
+  -h, --help  show CLI help
+```
+
+_See code: [src/commands/list.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/list.ts)_
+
+## `laboris task:new [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ laboris task:new [FILE]
 
 OPTIONS
   -f, --force
@@ -171,7 +186,7 @@ OPTIONS
   -n, --name=name  name to print
 ```
 
-_See code: [src/commands/list.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/list.ts)_
+_See code: [src/commands/task/new.ts](https://github.com/LuxAter/laboris/blob/v0.0.0/src/commands/task/new.ts)_
 
 ## `laboris update [CHANNEL]`
 

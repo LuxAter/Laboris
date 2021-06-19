@@ -2,9 +2,10 @@ import { Command, flags } from "@oclif/command";
 
 import firebase from "firebase/app";
 import "firebase/auth";
-import * as inquirer from "inquirer";
+import * as _ from "lodash";
 
 import { error, info } from "../../common/message";
+import { UserRecoverAnswer, userRecoverQuestion } from "../../common/prompts";
 
 export default class UserRecover extends Command {
   static description = "send password recover email";
@@ -18,19 +19,9 @@ export default class UserRecover extends Command {
   async run() {
     const { args, flags } = this.parse(UserRecover);
 
-    await inquirer
-      .prompt(
-        [
-          {
-            type: "input",
-            name: "email",
-            message: "Email:",
-          },
-        ],
-        args
-      )
-      .then((args: any) => {
-        return firebase.auth().sendPasswordResetEmail(args.email);
+    await userRecoverQuestion(_.merge(args, flags))
+      .then((answer: UserRecoverAnswer) => {
+        return firebase.auth().sendPasswordResetEmail(answer.email);
       })
       .then(() => {
         info("Sent password rest email");

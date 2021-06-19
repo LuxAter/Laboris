@@ -5,7 +5,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 import { __APP__, firestore } from "../common/firebase";
-import { error } from "../common/message";
+import { info, error } from "../common/message";
 
 export default class List extends Command {
   static description = "describe the command here";
@@ -27,7 +27,10 @@ export default class List extends Command {
 
     await firestore()
       .then(([db]: [any]) => {
-        return db.collection("tasks").where("uid", "==", user.uid).get();
+        return db
+          .collection("tasks")
+          .where("users", "array-contains", user.uid)
+          .get();
       })
       .then((querySnapshot: any) => {
         querySnapshot.forEach((doc: any) => {

@@ -1,10 +1,10 @@
 import { Command, flags } from "@oclif/command";
 
-import { highlight } from "cli-highlight";
 import firebase from "firebase/app";
 import "firebase/auth";
 
 import { info, warning } from "../common/message";
+import { highlightJson } from "../common/util";
 
 export default class User extends Command {
   static description = "display basic user information";
@@ -25,13 +25,7 @@ export default class User extends Command {
     var user = firebase.auth().currentUser;
     if (user === null) warning("No user is currently signed in");
     else {
-      if (flags.verbose)
-        info(
-          `Current user:\n${highlight(JSON.stringify(user, null, 2), {
-            language: "json",
-            ignoreIllegals: true,
-          })}`
-        );
+      if (flags.verbose) info(`Current user:\n${highlightJson(user)}`);
       else info(`Current user: ${user.email}`);
     }
   }

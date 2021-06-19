@@ -2,11 +2,11 @@ import { Command, flags } from "@oclif/command";
 
 import firebase from "firebase/app";
 import "firebase/auth";
-import * as inquirer from "inquirer";
 import * as _ from "lodash";
 
 import { cfg, __DIRTY_CONFIG__ } from "../../common/config";
 import { success, error } from "../../common/message";
+import { UserRegisterAnswer, userRegisterQuestion } from "../../common/prompts";
 
 export default class UserRegister extends Command {
   static description = "create a new user";
@@ -20,37 +20,11 @@ export default class UserRegister extends Command {
   async run() {
     const { args, flags } = this.parse(UserRegister);
 
-    await inquirer
-      .prompt(
-        [
-          {
-            type: "input",
-            name: "email",
-            message: "Email:",
-          },
-          {
-            type: "password",
-            name: "password",
-            message: "Password:",
-            mask: "*",
-          },
-          {
-            type: "password",
-            name: "passwordConfirm",
-            message: "Confirm Password:",
-            mask: "*",
-          },
-        ],
-        args
-      )
-      .then((args: any) => {
-        if (args.password !== args.passwordConfirm)
-          return new Promise((resolve, reject) => {
-            reject({ message: "Passwords do not match." });
-          });
+    await userRegisterQuestion(_.merge(args, flags))
+      .then((answer: UserRegisterAnswer) => {
         return firebase
           .auth()
-          .createUserWithEmailAndPassword(args.email, args.password);
+          .createUserWithEmailAndPassword(answer.email, answer.password);
       })
       .then((userCredential: any) => {
         return cfg(userCredential.user);

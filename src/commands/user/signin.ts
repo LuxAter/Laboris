@@ -7,6 +7,7 @@ import * as _ from "lodash";
 
 import { cfg, __DIRTY_CONFIG__ } from "../../common/config";
 import { success, error } from "../../common/message";
+import { UserSigninAnswer, userSigninQuestion } from "../../common/prompts";
 
 export default class UserSignin extends Command {
   static description = "sign-in to an existing account";
@@ -20,27 +21,11 @@ export default class UserSignin extends Command {
   async run() {
     const { args, flags } = this.parse(UserSignin);
 
-    await inquirer
-      .prompt(
-        [
-          {
-            type: "input",
-            name: "email",
-            message: "Email:",
-          },
-          {
-            type: "password",
-            name: "password",
-            message: "Password:",
-            mask: "*",
-          },
-        ],
-        args
-      )
-      .then((args: any) => {
+    await userSigninQuestion(_.merge(args, flags))
+      .then((answer: UserSigninAnswer) => {
         return firebase
           .auth()
-          .signInWithEmailAndPassword(args.email, args.password);
+          .signInWithEmailAndPassword(answer.email, answer.password);
       })
       .then((userCredential: any) => {
         return cfg(userCredential.user);
