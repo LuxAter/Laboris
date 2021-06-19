@@ -2,9 +2,10 @@ import { Command, flags } from "@oclif/command";
 
 import firebase from "firebase/app";
 import "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import "firebase/firestore";
 
-import { db } from "../common/db";
+import { __APP__, firestore } from "../common/firebase";
+import { error } from "../common/message";
 
 export default class List extends Command {
   static description = "describe the command here";
@@ -19,12 +20,20 @@ export default class List extends Command {
     const { args, flags } = this.parse(List);
     const user = firebase.auth().currentUser;
 
-    await db().then((db: any) => {console.log(db);})
-    //   .then((db: any) => {
-    //     return db.tasks.where('uid', '==', user.uid).get()
-    //   })
-    //   .then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => console.log(doc.id, " => ", doc.data()));
-    //   });
+    if (user === null) {
+      error("You must log in before preforming database queries");
+      return;
+    }
+
+    await firestore()
+      .then(([db]: [any]) => {
+        return db.collection("tasks").where("uid", "==", user.uid).get();
+      })
+      .then((querySnapshot: any) => {
+        querySnapshot.forEach((doc: any) => {
+          console.log(doc.id, " => ", doc.data());
+        });
+      });
+    __APP__.delete();
   }
 }

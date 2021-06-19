@@ -19,7 +19,7 @@
     "chalk": "^4.1.1",
     "cli-highlight": "^2.1.11",
     "figures": "^3.2.0",
-    "firebase": "^8.6.5",
+    "firebase": "8.2.5",
     "lodash": "^4.17.21",
     "tslib": "^1"
   },
@@ -31,7 +31,8 @@
     "eslint-config-oclif-typescript": "^0.1",
     "globby": "^10",
     "ts-node": "^8",
-    "typescript": "^3.3"
+    "typescript": "^3.3",
+    "why-is-node-running": "^2.2.0"
   },
   "engines": {
     "node": ">=8.0.0"
